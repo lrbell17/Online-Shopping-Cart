@@ -16,10 +16,34 @@ class ShoppingCartComponent extends React.Component {
         ShoppingCartService.getItems().then((response) => {
             this.setState({items: response.data })
         });
-        /* Getting total cost from backend */
+        this.getTotal();
+    }
+
+    getTotal(){
         ShoppingCartService.getTotal().then((response) => {
             this.setState({total: response.data})
         });
+    }
+
+    handleClickIncrement(id) {
+        ShoppingCartService.handleIncrement(id).then((response)=> {
+            this.setState({items: response.data})
+        });
+        this.getTotal();
+    }
+
+    handleClickDecrement(id) {
+        ShoppingCartService.handleDecrement(id).then((response)=> {
+            this.setState({items: response.data})
+        });
+        this.getTotal();
+    }
+
+    handleClickDelete(id){
+        ShoppingCartService.handleDelete(id).then((response)=> {
+            this.setState({items: response.data})
+        });
+        this.getTotal();
     }
 
     render(){
@@ -35,18 +59,47 @@ class ShoppingCartComponent extends React.Component {
                             <td><strong>Price</strong></td>
                             <td><strong>Quantity</strong></td>
                             <td><strong>Total (per item)</strong></td>
+                            <td>up</td>
+                            <td>down</td>
+                            <td>delete</td>
                         </tr>
                     </thead>
                     <tbody>
                         {
                             this.state.items.map(
                                 item => 
-                                <tr key={item.id}> 
-                                    <td>{item.id}</td>
+                                <tr key={item.productId}> 
+                                    <td>{item.productId}</td>
                                     <td>{item.productName}</td>
                                     <td>${item.price.toFixed(2)}</td>
                                     <td>{item.quantity}</td>
                                     <td>${(item.price * item.quantity).toFixed(2)}</td>
+                                    <td>
+                                        <button
+                                            className="btn btn-success"
+                                            onClick={() => this.handleClickIncrement(item.productId)}
+                                        > 
+                                        <i className="fa fa-plus-circle" aria-hidden="true" />
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button
+                                            className="btn btn-secondary"
+                                            onClick={() => this.handleClickDecrement(item.productId)}
+                                            disabled={item.quantity === 0 ? "disabled" : ""}
+                                        > 
+                                        <i className="fa fa-minus-circle" aria-hidden="true" />
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button
+                                            className="btn btn-danger"
+                                            onClick={() => this.handleClickDelete(item.productId)}
+                                        > 
+                                        <i className="fa fa-trash-o" aria-hidden="true" />
+                                        </button>
+                                    </td>
+
                                 </tr>
                             )
                         }

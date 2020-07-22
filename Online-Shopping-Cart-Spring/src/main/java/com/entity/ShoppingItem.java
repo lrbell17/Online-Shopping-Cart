@@ -13,7 +13,7 @@ public class ShoppingItem {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private int productId;
 	
 	@Column(name = "product_name")
 	private String productName;
@@ -38,12 +38,12 @@ public class ShoppingItem {
 
 	
 	// Getters and Setters
-	public long getId() {
-		return id;
+	public long getProductId() {
+		return productId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 
 	public String getProductName() {

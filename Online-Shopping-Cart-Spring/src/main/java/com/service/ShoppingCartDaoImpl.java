@@ -5,13 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.crudapp.ShoppingCartRepo;
 import com.entity.ShoppingItem;
 
 
-
 @Service
+@Transactional
 public class ShoppingCartDaoImpl implements ShoppingCartDao{
 	
 	@Autowired
@@ -29,6 +30,27 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao{
 		List<ShoppingItem> list = new ArrayList<ShoppingItem>();
 		shoppingRepo.findAll().iterator().forEachRemaining(list::add);
 		return list;
+	}
+	
+	@Override
+	public ShoppingItem findItem(int id) {
+		
+		return shoppingRepo.findByProductId(id);
+	}
+
+	@Override
+	public ShoppingItem updateItem(ShoppingItem item) {
+
+		shoppingRepo.save(item);
+		
+		return item;
+	}
+	
+
+	@Override
+	public void deleteItemById(int id) {
+		shoppingRepo.deleteByProductId(id);
+		
 	}
 	
 }
