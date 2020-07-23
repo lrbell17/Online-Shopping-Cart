@@ -10,6 +10,8 @@ const INC_URL = 'http://localhost:8080/shopping/increment/';
 
 const DEC_URL = 'http://localhost:8080/shopping/decrement/';
 
+const FIND_URL = 'http://localhost:8080/shopping/find/';
+
 class ShoppingCartService {
 
     getItems(){
@@ -32,6 +34,10 @@ class ShoppingCartService {
     handleDelete(id){
         return axios.get(DELETE_URL.concat(id));
     };
+
+    findItem(id){
+        return axios.get(FIND_URL.concat(id));
+    }
 
 }
 

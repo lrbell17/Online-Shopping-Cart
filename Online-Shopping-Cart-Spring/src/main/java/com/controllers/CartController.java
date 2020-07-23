@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dao.ShoppingCartDao;
 import com.entity.ShoppingItem;
-import com.service.ShoppingCartDao;
+
 
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -72,4 +73,10 @@ public class CartController {
 		return shoppingDao.findAll();
 	}
 	
+	@GetMapping("find/{id}")
+	public ShoppingItem findItem(@PathVariable int id) {
+		ShoppingItem item = shoppingDao.findItem(id);
+	
+	return item;
+}	
 }

@@ -1,4 +1,4 @@
-package com.service;
+package com.dao;
 
 import java.util.List;
 

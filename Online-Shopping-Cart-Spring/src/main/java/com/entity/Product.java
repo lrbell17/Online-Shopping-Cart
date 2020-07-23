@@ -2,14 +2,17 @@ package com.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "SHOPPING_CART")
-public class ShoppingItem {
-	
+@Table(name = "PRODUCT_LIST")
+public class Product {
+
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int productId;
 	
 	@Column(name = "product_name")
@@ -19,24 +22,21 @@ public class ShoppingItem {
 	private double price;
 	
 	@Column(name = "quantity")
-	private int quantity;
-
+	private int quantity = 1;
+	
 	// Constructor(s)
-	public ShoppingItem() {
+	public Product() {
 		
 	}
 
-	public ShoppingItem(int productId, String productName, double price, int quantity) {
+	public Product(String productName, double price) {
 		super();
-		this.productId = productId;
 		this.productName = productName;
 		this.price = price;
-		this.quantity = quantity;
 	}
 
-	
 	// Getters and Setters
-	public long getProductId() {
+	public int getProductId() {
 		return productId;
 	}
 
@@ -67,6 +67,8 @@ public class ShoppingItem {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	
+	
 	
 	
 }
